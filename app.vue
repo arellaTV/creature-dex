@@ -6,20 +6,22 @@
   </div>
 </template>
 
-<script>
-const audio = new Audio("/cute-creatures-150622.mp3");
-audio.volume = 0.5;
-audio.addEventListener("canplaythrough", () => {
-  audio.play().catch(() => {
-    window.addEventListener(
-      "click",
-      () => {
-        audio.play();
-      },
-      { once: true }
-    );
+<script setup lang="ts">
+if (import.meta.browser) {
+  const audio = new Audio("/cute-creatures-150622.mp3");
+  audio.volume = 0.5;
+  audio.addEventListener("canplaythrough", () => {
+    audio.play().catch(() => {
+      window.addEventListener(
+        "click",
+        () => {
+          audio.play();
+        },
+        { once: true }
+      );
+    });
   });
-});
+}
 </script>
 
 <style type="text/css">
