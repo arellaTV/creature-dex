@@ -18,8 +18,10 @@ onMounted(() => {
 #renderCanvas {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 540px;
+  width: 300px;
+  height: 400px;
   outline: 0;
+  position: relative;
+  z-index: 1;
 }
 </style>
