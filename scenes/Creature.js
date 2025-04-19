@@ -6,11 +6,13 @@ import {
   MeshBuilder,
   StandardMaterial,
   Color3,
+  Color4,
   HemisphericLight,
 } from "@babylonjs/core";
 const createScene = (canvas) => {
   const engine = new Engine(canvas);
   const scene = new Scene(engine);
+  scene.clearColor = new Color4(0, 0, 0, 0.0000000000000001);
 
   const camera = new ArcRotateCamera(
     "Camera",
