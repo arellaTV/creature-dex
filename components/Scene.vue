@@ -171,13 +171,15 @@ onMounted(() => {
   font-size: 24px;
 }
 #name-container h1 {
-  display: inline;
+  margin: 0px;
 }
 #name-container {
   background-color: black;
   color: white;
   padding: 15px;
   width: 75%;
+  display: flex;
+  align-items: center;
 }
 #character-container {
   height: 100vh;
@@ -206,9 +208,14 @@ onMounted(() => {
   display: flex;
   width: 100%;
   justify-content: center;
+  transition: 150ms ease-in-out;
 }
 
-@media screen and (max-width: 1000px) {
+.nav-arrow:hover {
+  transform: scale(1.5);
+}
+
+@media screen and (max-width: 1200px) {
   #character-container {
     width: 40%;
   }
@@ -227,7 +234,9 @@ onMounted(() => {
   }
   #character-container {
     width: 100%;
-    height: 50vh;
+    height: 40vh;
+    margin-top: -50px;
+    margin-bottom: -50px;
     padding: 0px;
   }
   #metadata-container {
@@ -235,6 +244,13 @@ onMounted(() => {
     padding: 0px;
     padding-left: 15px;
     padding-right: 15px;
+  }
+  #metadata-table-container {
+    padding: 0px;
+  }
+  #number-container,
+  #name-container h1 {
+    font-size: 20px;
   }
 }
 </style>
