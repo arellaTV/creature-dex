@@ -20,5 +20,6 @@ onMounted(() => {
   padding: 0;
   width: 100%;
   height: 540px;
+  outline: 0;
 }
 </style>
