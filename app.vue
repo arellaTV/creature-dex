@@ -10,6 +10,7 @@
 if (import.meta.browser) {
   const audio = new Audio("/cute-creatures-150622.mp3");
   audio.volume = 0.5;
+  audio.loop = true;
   audio.addEventListener("canplaythrough", () => {
     audio.play().catch(() => {
       window.addEventListener(
