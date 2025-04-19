@@ -16,8 +16,8 @@ onMounted(() => {
       <canvas
         id="babylon-canvas"
         ref="bjsCanvas"
-        width="300px"
-        height="400px"
+        width="600px"
+        height="800px"
       />
     </div>
     <div id="metadata-container">
@@ -59,9 +59,12 @@ onMounted(() => {
 <style type="text/css">
 #page-container {
   display: flex;
+  justify-content: space-between;
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 #page-container * {
   box-sizing: border-box;
@@ -165,5 +168,35 @@ onMounted(() => {
 
 #babylon-canvas:active {
   cursor: grabbing;
+}
+
+@media screen and (max-width: 1000px) {
+  #character-container {
+    width: 40%;
+  }
+  #metadata-container {
+    width: 60%;
+  }
+  #metadata-table-container {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #page-container {
+    flex-direction: column;
+    padding: 0px;
+  }
+  #character-container {
+    width: 100%;
+    height: 50vh;
+    padding: 0px;
+  }
+  #metadata-container {
+    width: 100%;
+    padding: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 </style>

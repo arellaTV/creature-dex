@@ -34,4 +34,11 @@ body {
   width: 125vw;
   height: 100vh;
 }
+
+@media screen and (max-width: 800px) {
+  #background {
+    width: 150vw;
+    left: -25%;
+  }
+}
 </style>
