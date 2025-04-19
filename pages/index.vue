@@ -1,3 +1,10 @@
+<script setup lang="ts">
+// const localePath = useLocalePath()
+definePageMeta({});
+</script>
+
 <template>
-  <h1>Index page</h1>
+  <LayoutsCommon>
+    <Scene />
+  </LayoutsCommon>
 </template>
