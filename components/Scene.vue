@@ -5,6 +5,7 @@ const route = useRoute();
 const bjsCanvas = ref(null);
 const number = parseInt(route?.params?.id as string) || 5;
 const creature = creatures.find((creature) => creature.number == number);
+const audio = new Audio("/mouse-click-290204.mp3");
 
 onMounted(() => {
   if (bjsCanvas.value) {
@@ -32,6 +33,7 @@ onMounted(() => {
             id: number > 1 ? number - 1 : number,
           },
         }"
+        @click.prevent="audio.play()"
         ><Icon
           name="material-symbols:arrow-drop-up-rounded"
           style="color: white"
@@ -53,6 +55,7 @@ onMounted(() => {
             id: number < 100 ? number + 1 : number,
           },
         }"
+        @click.prevent="audio.play()"
         ><Icon
           name="material-symbols:arrow-drop-down-rounded"
           style="color: white"
