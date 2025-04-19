@@ -3,7 +3,7 @@ import { createScene } from "../scenes/Creature";
 import creatures from "./creatures.json";
 const route = useRoute();
 const bjsCanvas = ref(null);
-const number = parseInt(route?.params?.id as string) || 1;
+const number = parseInt(route?.params?.id as string) || 5;
 const creature = creatures.find((creature) => creature.number == number);
 
 onMounted(() => {
