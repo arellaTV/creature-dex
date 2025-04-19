@@ -2,5 +2,35 @@
   <div>
     <NuxtRouteAnnouncer />
     <NuxtPage />
+    <div id="background" />
   </div>
 </template>
+
+<style type="text/css">
+body {
+  padding: 0;
+  margin: 0;
+}
+#background {
+  background: #e9e3e6;
+  background: linear-gradient(
+    90deg,
+    rgb(255, 255, 255) 0%,
+    rgb(255, 255, 255) 10%,
+    rgba(255, 87, 58, 1) 10%,
+    rgba(255, 87, 58, 1) 20%,
+    rgba(255, 126, 74, 1) 20%,
+    rgba(255, 126, 74, 1) 80%,
+    rgba(255, 87, 58, 1) 80%,
+    rgba(255, 87, 58, 1) 90%,
+    rgb(255, 255, 255) 90%,
+    rgb(255, 255, 255) 100%
+  );
+  transform: skew(-15deg, 0deg);
+  position: fixed;
+  top: 0px;
+  left: -12.5%;
+  width: 125vw;
+  height: 100vh;
+}
+</style>
