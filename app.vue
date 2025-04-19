@@ -10,6 +10,7 @@
 body {
   padding: 0;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 #background {
   background: #e9e3e6;
