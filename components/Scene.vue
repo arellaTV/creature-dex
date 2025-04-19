@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { createScene } from "../scenes/Creature";
-
+import creatures from "./creatures.json";
+const route = useRoute();
 const bjsCanvas = ref(null);
+const number = parseInt(route?.params?.id as string) || 1;
+const creature = creatures.find((creature) => creature.number == number);
 
 onMounted(() => {
   if (bjsCanvas.value) {
-    createScene(bjsCanvas.value);
+    createScene(bjsCanvas.value, number);
   }
 });
 </script>
@@ -21,35 +24,63 @@ onMounted(() => {
       />
     </div>
     <div id="metadata-container">
+      <NuxtLink
+        class="nav-arrow"
+        :to="{
+          name: 'creatures-id',
+          params: {
+            id: number > 1 ? number - 1 : number,
+          },
+        }"
+        ><Icon
+          name="material-symbols:arrow-drop-up-rounded"
+          style="color: white"
+          size="4em"
+      /></NuxtLink>
       <div id="entry-banner">
-        <div id="number-container">No. 005</div>
+        <div id="number-container">
+          No. {{ (number.toString() as string).padStart(3, "0") }}
+        </div>
         <div id="name-container">
-          <h1>Floracub</h1>
+          <h1>{{ creature?.name }}</h1>
         </div>
       </div>
+      <NuxtLink
+        class="nav-arrow"
+        :to="{
+          name: 'creatures-id',
+          params: {
+            id: number < 100 ? number + 1 : number,
+          },
+        }"
+        ><Icon
+          name="material-symbols:arrow-drop-down-rounded"
+          style="color: white"
+          size="4em"
+        />
+      </NuxtLink>
       <div id="metadata-table-container">
-        <div id="category">Seedling Bear</div>
+        <div id="category">{{ creature?.category }}</div>
         <div id="properties-table">
           <div class="row">
             <div>Type</div>
-            <div>Grass</div>
+            <div>{{ creature?.type }}</div>
           </div>
           <div class="row">
             <div>Height</div>
-            <div>2' 9"</div>
+            <div>{{ creature?.height }}</div>
           </div>
           <div class="row">
             <div>Weight</div>
-            <div>45.0 lbs</div>
+            <div>{{ creature?.weight }}</div>
           </div>
           <div class="row">
             <div>Number Battled</div>
-            <div>53</div>
+            <div>{{ creature?.numberBattled }}</div>
           </div>
         </div>
         <div id="description">
-          A small sprout grows on its head, which blooms when it's happy. Loves
-          basking in the sun.
+          {{ creature?.description }}
         </div>
       </div>
     </div>
@@ -84,6 +115,7 @@ onMounted(() => {
   padding: 50px;
   font-size: 26px;
   padding-bottom: 0px;
+  padding-top: 0px;
 }
 #properties-table {
   width: 100%;
@@ -168,6 +200,12 @@ onMounted(() => {
 
 #babylon-canvas:active {
   cursor: grabbing;
+}
+
+.nav-arrow {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1000px) {

@@ -5,13 +5,11 @@ import {
   Vector3,
   HemisphericLight,
   ImportMeshAsync,
-  DirectionalLight,
-  SpotLight,
 } from "@babylonjs/core";
 import "@babylonjs/loaders/glTF";
 import gsap from "gsap";
 
-const createScene = async (canvas) => {
+const createScene = async (canvas, id) => {
   const engine = new Engine(canvas);
   const scene = new Scene(engine);
   scene.autoClear = false;
@@ -31,7 +29,7 @@ const createScene = async (canvas) => {
   new HemisphericLight("light1", Vector3.Up(), scene);
   new HemisphericLight("light2", Vector3.Down(), scene);
 
-  const results = await ImportMeshAsync("creatures/models/5.glb");
+  const results = await ImportMeshAsync(`/creatures/models/${id}.glb`);
   const mesh = results.meshes[0];
 
   gsap.to(mesh.position, {
