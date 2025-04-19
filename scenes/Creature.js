@@ -23,6 +23,8 @@ const createScene = async (canvas) => {
     scene
   );
   camera.attachControl(canvas, true);
+  camera.lowerRadiusLimit = camera.radius;
+  camera.upperRadiusLimit = camera.radius;
 
   new HemisphericLight("light", Vector3.Up(), scene);
 
