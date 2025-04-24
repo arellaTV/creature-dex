@@ -1,12 +1,7 @@
-<template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtPage />
-    <div id="background" />
-  </div>
-</template>
-
 <script setup lang="ts">
+import { createScene } from "./scenes/Creature";
+const bjsCanvas = ref(null);
+
 if (import.meta.browser) {
   const audio = new Audio("/cute-creatures-150622.mp3");
   audio.volume = 0.5;
@@ -23,7 +18,31 @@ if (import.meta.browser) {
     });
   });
 }
+
+onMounted(() => {
+  if (bjsCanvas.value) {
+    createScene(bjsCanvas.value);
+  }
+});
 </script>
+
+<template>
+  <div>
+    <NuxtRouteAnnouncer />
+    <div id="page-container">
+      <div id="character-container">
+        <canvas
+          id="babylon-canvas"
+          ref="bjsCanvas"
+          width="600px"
+          height="800px"
+        />
+      </div>
+      <NuxtPage />
+    </div>
+    <div id="background" />
+  </div>
+</template>
 
 <style type="text/css">
 body {
