@@ -1,90 +1,93 @@
 <script setup lang="ts">
-import { createScene } from "../scenes/Creature";
+import { loadNewMesh } from "../scenes/Creature";
 import creatures from "./creatures.json";
 const route = useRoute();
-const bjsCanvas = ref(null);
+const audioRef = ref<HTMLAudioElement | null>(null);
 const number = parseInt(route?.params?.id as string) || 5;
 const creature = creatures.find((creature) => creature.number == number);
-const audio = new Audio("/mouse-click-290204.mp3");
 
 onMounted(() => {
-  if (bjsCanvas.value) {
-    createScene(bjsCanvas.value, number);
+  setTimeout(() => {
+    loadNewMesh(number);
+  }, 0);
+  loadNewMesh();
+
+  if (audioRef.value) {
+    audioRef.value.play();
   }
 });
 </script>
 
 <template>
-  <div id="page-container">
-    <div id="character-container">
-      <canvas
-        id="babylon-canvas"
-        ref="bjsCanvas"
-        width="600px"
-        height="800px"
-      />
+  <audio ref="audioRef" src="/mouse-click-290204.mp3" />
+  <div id="metadata-container">
+    <NuxtLink
+      :style="[
+        number - 1 >= 1
+          ? { opacity: '1' }
+          : { opacity: '0', pointerEvents: 'none', cursor: 'default' },
+      ]"
+      class="nav-arrow"
+      :to="{
+        name: 'creatures-id',
+        params: {
+          id: number > 1 ? number - 1 : number,
+        },
+      }"
+      ><Icon
+        name="material-symbols:arrow-drop-up-rounded"
+        style="color: white"
+        size="4em"
+    /></NuxtLink>
+    <div id="entry-banner">
+      <div id="number-container">
+        No. {{ (number.toString() as string).padStart(3, "0") }}
+      </div>
+      <div id="name-container">
+        <h1>{{ creature?.name }}</h1>
+      </div>
     </div>
-    <div id="metadata-container">
-      <NuxtLink
-        class="nav-arrow"
-        :to="{
-          name: 'creatures-id',
-          params: {
-            id: number > 1 ? number - 1 : number,
-          },
-        }"
-        @click.prevent="audio.play()"
-        ><Icon
-          name="material-symbols:arrow-drop-up-rounded"
-          style="color: white"
-          size="4em"
-      /></NuxtLink>
-      <div id="entry-banner">
-        <div id="number-container">
-          No. {{ (number.toString() as string).padStart(3, "0") }}
+    <NuxtLink
+      :style="[
+        number + 1 <= 10
+          ? { opacity: '1' }
+          : { opacity: '0', pointerEvents: 'none', cursor: 'default' },
+      ]"
+      class="nav-arrow"
+      :to="{
+        name: 'creatures-id',
+        params: {
+          id: number < 100 ? number + 1 : number,
+        },
+      }"
+      ><Icon
+        name="material-symbols:arrow-drop-down-rounded"
+        style="color: white"
+        size="4em"
+      />
+    </NuxtLink>
+    <div id="metadata-table-container">
+      <div id="category">{{ creature?.category }}</div>
+      <div id="properties-table">
+        <div class="row">
+          <div>Type</div>
+          <div>{{ creature?.type }}</div>
         </div>
-        <div id="name-container">
-          <h1>{{ creature?.name }}</h1>
+        <div class="row">
+          <div>Height</div>
+          <div>{{ creature?.height }}</div>
+        </div>
+        <div class="row">
+          <div>Weight</div>
+          <div>{{ creature?.weight }}</div>
+        </div>
+        <div class="row">
+          <div>Number Battled</div>
+          <div>{{ creature?.numberBattled }}</div>
         </div>
       </div>
-      <NuxtLink
-        class="nav-arrow"
-        :to="{
-          name: 'creatures-id',
-          params: {
-            id: number < 100 ? number + 1 : number,
-          },
-        }"
-        @click.prevent="audio.play()"
-        ><Icon
-          name="material-symbols:arrow-drop-down-rounded"
-          style="color: white"
-          size="4em"
-        />
-      </NuxtLink>
-      <div id="metadata-table-container">
-        <div id="category">{{ creature?.category }}</div>
-        <div id="properties-table">
-          <div class="row">
-            <div>Type</div>
-            <div>{{ creature?.type }}</div>
-          </div>
-          <div class="row">
-            <div>Height</div>
-            <div>{{ creature?.height }}</div>
-          </div>
-          <div class="row">
-            <div>Weight</div>
-            <div>{{ creature?.weight }}</div>
-          </div>
-          <div class="row">
-            <div>Number Battled</div>
-            <div>{{ creature?.numberBattled }}</div>
-          </div>
-        </div>
-        <div id="description">
-          {{ creature?.description }}
-        </div>
+      <div id="description">
+        {{ creature?.description }}
       </div>
     </div>
   </div>
@@ -106,7 +109,7 @@ onMounted(() => {
 #metadata-container {
   width: 55%;
   height: 100%;
-  padding: 50px;
+  padding-right: 50px;
   padding-left: 0px;
 }
 .row:last-child div {
@@ -116,7 +119,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   padding: 50px;
-  font-size: 26px;
+  font-size: 22px;
   padding-bottom: 0px;
   padding-top: 0px;
 }
@@ -226,7 +229,7 @@ onMounted(() => {
     width: 60%;
   }
   #metadata-table-container {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
