@@ -109,6 +109,7 @@ onMounted(() => {
 #metadata-container {
   width: 55%;
   height: 100%;
+  padding-top: 50px;
   padding-right: 50px;
   padding-left: 0px;
 }
@@ -219,6 +220,12 @@ onMounted(() => {
 
 .nav-arrow:hover {
   transform: scale(1.5);
+}
+
+@media screen and (max-height: 800px) {
+  #metadata-container {
+    padding-top: 0px;
+  }
 }
 
 @media screen and (max-width: 1200px) {
