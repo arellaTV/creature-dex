@@ -4,7 +4,5 @@ definePageMeta({});
 </script>
 
 <template>
-  <LayoutsCommon>
-    <Scene />
-  </LayoutsCommon>
+  <Scene />
 </template>
