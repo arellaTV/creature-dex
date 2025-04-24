@@ -39,14 +39,7 @@ const createScene = async (canvas) => {
 const loadNewMesh = async (id) => {
   if (!id) return;
   const { meshes } = window.scene;
-  let foundMesh = false;
-  meshes.forEach((mesh) => {
-    mesh.setEnabled(false);
-    if (mesh.name === id) {
-      mesh.setEnabled(true);
-      foundMesh = true;
-    }
-  });
+  const foundMesh = meshes.find((mesh) => mesh.name === id);
 
   if (!foundMesh) {
     const results = await ImportMeshAsync(
@@ -55,7 +48,9 @@ const loadNewMesh = async (id) => {
     );
 
     results.meshes[0].name = id;
+    results.meshes[0].isVisible = true;
     results.meshes[1].name = id;
+    results.meshes[1].isVisible = true;
     gsap.to(results.meshes[0].position, {
       y: -0.06,
       duration: 1,
@@ -64,6 +59,13 @@ const loadNewMesh = async (id) => {
       ease: "power1.inOut",
     });
   }
+
+  meshes.forEach((mesh) => {
+    mesh.isVisible = false;
+    if (mesh.name === id) {
+      mesh.isVisible = true;
+    }
+  });
 };
 
 export { createScene, loadNewMesh };
