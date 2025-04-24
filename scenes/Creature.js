@@ -39,10 +39,8 @@ const createScene = async (canvas) => {
 const loadNewMesh = async (id) => {
   if (!id) return;
   const { meshes } = window.scene;
-  console.log({ meshes });
   let foundMesh = false;
   meshes.forEach((mesh) => {
-    console.log({ mesh });
     mesh.setEnabled(false);
     if (mesh.name === id) {
       mesh.setEnabled(true);
@@ -56,7 +54,6 @@ const loadNewMesh = async (id) => {
       window.scene
     );
 
-    console.log(results.meshes);
     results.meshes[0].name = id;
     results.meshes[1].name = id;
     gsap.to(results.meshes[0].position, {
