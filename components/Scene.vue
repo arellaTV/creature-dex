@@ -7,10 +7,10 @@ const number = parseInt(route?.params?.id as string) || 5;
 const creature = creatures.find((creature) => creature.number == number);
 
 onMounted(() => {
+  // waits first for the scene to be ready, then loads the new mesh
   setTimeout(() => {
     loadNewMesh(number);
   }, 0);
-  loadNewMesh();
 
   if (audioRef.value) {
     audioRef.value.play();
